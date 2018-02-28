@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=920px, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ping Test</title>
+</head>
+<body>
+    <div align="center">
+    <form action="/add" method="post">
+    <input type="text" name="addip" id="ip"></input>
+    <input type="submit" id="button" onclick="reload" ></input>
+    </form>
+
+    <div id="main" style="width: 600px;height:400px;"></div>
+
+    </div>
+
+    <script>
+        function reload() {
+            window.localtion.reload();
+        }
+    </script>
+    <script src="https://cdn.bootcss.com/echarts/4.0.2/echarts.min.js"></script>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+
+        var getData = "{{ addrs }}"
+        var Ha = getData.split("#")
+
+        // 指定图表的配置项和数据
+        var option = {
+            title: {
+                text: 'Ping 测速结果'
+            },
+            tooltip: {},
+            legend: {
+                data:['延迟']
+            },
+            xAxis: {
+                data: []
+            },
+            yAxis: {},
+            series: [{
+                name: '延迟',
+                type: 'bar',
+                data: {{ rtts }}
+            }]
+        };
+
+        option.xAxis.data = Ha;
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
+</body>
+</html>

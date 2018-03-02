@@ -25,7 +25,7 @@ def index():
             rtts.append(rtt)
         for addr in addrs:
             for i in ips:
-                if  gethostbyname(i["target"]) == addr:
+                if  i["target"] == addr:
                     names.append(i["name"])
         # if len(addrs) == 1:
         #     addrs = '["'+addrs[0]+'"]'
@@ -34,6 +34,7 @@ def index():
         #     addrs = '[' + "".join(['"'+i+'",' for i in temp[:-1]])
         #     addrs += '"'+temp[-1]+'"]'
         print(addrs)
+        print(names)
         print(rtts)
         return render_template("index.html", addrs="#".join(names), rtts=str(rtts))
     else:
